@@ -1,0 +1,37 @@
+---
+title: "My awesome website"
+output: 
+  html_document:
+    toc: true
+    toc_float: true
+    theme: cerulean
+---
+
+# This is Jeff's awesome website
+
+![](https://media.giphy.com/media/drXGoW1iudhKw/giphy.gif)
+Here is some text!
+I use [google](https://www.google.com/) all the time to do data science.
+
+![](images/western-university (2).png) This is Western 
+
+```{r}
+library(tidyverse)
+
+sample = rnorm(100)
+mean(sample)
+
+```
+
+
+Link to about page: [about](about.html)
+Another link: [extra](extra_page.html)
+
+
+
+
+
+
+
+
+
