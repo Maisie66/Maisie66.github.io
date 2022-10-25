@@ -33,6 +33,7 @@ Another link: [extra](extra_page.html)
 
 page with plotly [here](plotly.html)
 
+create dashboard [here](dashboard.html)
 
 
 

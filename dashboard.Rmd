@@ -1,22 +1,22 @@
 ---
-title: "plotly"
-author: "Maisie Sun"
-date: "2022-10-25"
-output: html_document
+title: "AirBNB Dashboard"
+output: 
+  flexdashboard::flex_dashboard:
+    orientation: columns
+    vertical_layout: fill
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+library(flexdashboard)
 
 library(tidyverse)
 library(p8105.datasets)
-
 library(plotly)
 ```
 
-## Data
-
-```{r}
+Column {data-width=650}
+-----------------------------------------------------------------------
+```{r, include=FALSE}
 data(nyc_airbnb)
 
 nyc_airbnb = 
@@ -32,7 +32,7 @@ nyc_airbnb =
   drop_na(rating)
 ```
 
-## Scatterplot
+### Chart A
 
 ```{r}
 nyc_airbnb %>%
@@ -46,7 +46,10 @@ nyc_airbnb %>%
   )
 ```
 
-## Boxplot
+Column {data-width=350}
+-----------------------------------------------------------------------
+
+### Chart B
 
 ```{r}
 nyc_airbnb %>% 
@@ -54,10 +57,7 @@ nyc_airbnb %>%
   plot_ly(y = ~price, color = ~neighbourhood, type = "box", colors = "viridis")
 ```
 
-double click on name to only see that boxplot
-single click on name to see everything except that boxplot
-
-## Barplot
+### Chart C
 
 ```{r}
 nyc_airbnb %>% 
@@ -66,26 +66,5 @@ nyc_airbnb %>%
   plot_ly(x = ~neighbourhood, y = ~n, color = ~neighbourhood, type = "bar", colors = "viridis")
 ```
 
-Must have `count`: number of obs for each neighborhood for height of bargrpah
-
-More graphs: https://plotly.com/r/
-
-## ggplot
-
-```{r}
-scatter_ggplot = 
-  nyc_airbnb %>%
-  ggplot(aes(x = lat, y = long, color = price)) +
-  geom_point(alpha = 0.25) +
-  coord_cartesian()
-
-ggplotly(scatter_ggplot)
-```
-
-This is helpful because it is often quicker to make graphics using ggplot
-issues: slower, less appealing for users
-
-* if it's for yourself, this is fine
-
-* if it's for someone else, use the plotly
+run this in the console to knit into dashboard or use build ot knit everything: `rmarkdown::render("dashboard.Rmd", output_format = "flexdashboard::flex_dashboard")`
 
