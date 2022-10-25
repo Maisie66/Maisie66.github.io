@@ -1,0 +1,90 @@
+---
+title: "plotly"
+author: "Maisie Sun"
+date: "2022-10-25"
+output: html_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+
+library(tidyverse)
+library(p8105.datasets)
+
+library(plotly)
+```
+
+## Data
+
+```{r}
+data(nyc_airbnb)
+
+nyc_airbnb = 
+  nyc_airbnb %>% 
+  mutate(rating = review_scores_location / 2) %>%
+  select(
+    neighbourhood_group, neighbourhood, rating, price, room_type, lat, long) %>%
+  filter(
+    !is.na(rating), 
+    neighbourhood_group == "Manhattan",
+    room_type == "Entire home/apt",
+    price %in% 100:500) %>%
+  drop_na(rating)
+```
+
+## Scatterplot
+
+```{r}
+nyc_airbnb %>%
+  mutate(
+    text_label = str_c("Price: ", price, "\nRating: ", rating)
+  ) %>%
+  plot_ly(
+    x = ~lat, y = ~long, color = ~price,
+    type = "scatter", mode = "markers",
+    alpha = .5, text = ~text_label
+  )
+```
+
+## Boxplot
+
+```{r}
+nyc_airbnb %>% 
+  mutate(neighbourhood = fct_reorder(neighbourhood, price)) %>% 
+  plot_ly(y = ~price, color = ~neighbourhood, type = "box", colors = "viridis")
+```
+
+double click on name to only see that boxplot
+single click on name to see everything except that boxplot
+
+## Barplot
+
+```{r}
+nyc_airbnb %>% 
+  count(neighbourhood) %>% 
+  mutate(neighbourhood = fct_reorder(neighbourhood, n)) %>% 
+  plot_ly(x = ~neighbourhood, y = ~n, color = ~neighbourhood, type = "bar", colors = "viridis")
+```
+
+Must have `count`: number of obs for each neighborhood for height of bargrpah
+
+More graphs: https://plotly.com/r/
+
+## ggplot
+
+```{r}
+scatter_ggplot = 
+  nyc_airbnb %>%
+  ggplot(aes(x = lat, y = long, color = price)) +
+  geom_point(alpha = 0.25) +
+  coord_cartesian()
+
+ggplotly(scatter_ggplot)
+```
+
+This is helpful because it is often quicker to make graphics using ggplot
+issues: slower, less appealing for users
+
+* if it's for yourself, this is fine
+
+* if it's for someone else, use the plotly

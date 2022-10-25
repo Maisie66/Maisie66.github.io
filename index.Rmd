@@ -15,6 +15,10 @@ I use [google](https://www.google.com/) all the time to do data science.
 
 ![](images/western-university (2).png) This is Western 
 
+<br><br><img src="images/western-university (2).png" alt="logo" style="width:85%; border:10px solid"><br>
+
+
+
 ```{r}
 library(tidyverse)
 
@@ -27,7 +31,7 @@ mean(sample)
 Link to about page: [about](about.html)
 Another link: [extra](extra_page.html)
 
-
+page with plotly [here](plotly.html)
 
 
 

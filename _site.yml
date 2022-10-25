@@ -9,7 +9,9 @@ navbar:
       href: mailto:<ms6360@cumc.columbia.edu>
     - icon: fa-github fa-lg
       href: http://github.com/Maisie66/
-    - icon: fa-thin fa-magnifying-glass
+    - icon: fa-glass fa-lg
+    - icon: fa-zoom fa-lg
 output:
   html_document:
-    theme: cerulean
+    theme: cosmo
+    
